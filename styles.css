@@ -1,0 +1,425 @@
+/* ============================================================
+   Side Bookmark - Plugin Styles
+   Uses Obsidian CSS variables for theme compatibility.
+   ============================================================ */
+
+/* ── Main Container ──────────────────────────────────────── */
+
+.sb-container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
+}
+
+/* ── Browser Panel ───────────────────────────────────────── */
+
+.sb-browser-panel {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	min-height: 200px;
+	overflow: hidden;
+}
+
+/* Navigation Bar */
+.sb-nav-bar {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 6px 8px;
+	background: var(--background-secondary);
+	border-bottom: 1px solid var(--background-modifier-border);
+	flex-shrink: 0;
+}
+
+.sb-nav-buttons {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	flex-shrink: 0;
+}
+
+.sb-nav-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 6px;
+	cursor: pointer;
+	color: var(--text-muted);
+	transition: all 0.15s ease;
+}
+
+.sb-nav-btn:hover {
+	background: var(--background-modifier-hover);
+	color: var(--text-normal);
+}
+
+.sb-nav-btn:active {
+	background: var(--background-modifier-active-hover);
+	transform: scale(0.95);
+}
+
+.sb-nav-btn svg {
+	width: 16px;
+	height: 16px;
+}
+
+.sb-bookmark-btn:hover {
+	color: var(--text-accent);
+}
+
+/* URL Input */
+.sb-url-input {
+	flex: 1;
+	min-width: 0;
+	height: 28px;
+	padding: 0 10px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+	background: var(--background-primary);
+	color: var(--text-normal);
+	font-size: 12px;
+	font-family: var(--font-monospace);
+	outline: none;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sb-url-input:focus {
+	border-color: var(--interactive-accent);
+	box-shadow: 0 0 0 2px rgba(var(--interactive-accent-rgb), 0.2);
+}
+
+.sb-url-input::placeholder {
+	color: var(--text-faint);
+}
+
+/* Webview Container */
+.sb-webview-container {
+	flex: 1;
+	overflow: hidden;
+	position: relative;
+	background: var(--background-primary);
+}
+
+.sb-webview {
+	width: 100%;
+	height: 100%;
+	border: none;
+}
+
+/* ── Bookmark Panel ──────────────────────────────────────── */
+
+.sb-bookmark-panel {
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+	max-height: 50%;
+	border-top: 2px solid var(--background-modifier-border);
+	background: var(--background-primary);
+	transition: max-height 0.25s ease;
+}
+
+.sb-bookmark-panel.sb-collapsed {
+	max-height: 36px;
+}
+
+.sb-bookmark-panel.sb-collapsed .sb-bookmark-list {
+	display: none;
+}
+
+/* Bookmark Header */
+.sb-bookmark-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 6px 8px;
+	background: var(--background-secondary);
+	flex-shrink: 0;
+	user-select: none;
+}
+
+.sb-bookmark-header-left {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	cursor: pointer;
+	flex: 1;
+	min-width: 0;
+}
+
+.sb-bookmark-header-left:hover {
+	color: var(--text-accent);
+}
+
+.sb-collapse-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	flex-shrink: 0;
+	color: var(--text-muted);
+	transition: transform 0.2s ease;
+}
+
+.sb-collapse-icon svg {
+	width: 14px;
+	height: 14px;
+}
+
+.sb-bookmark-title {
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.sb-bookmark-header-right {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	flex-shrink: 0;
+}
+
+.sb-add-btn-group {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+}
+
+.sb-header-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	border-radius: 4px;
+	cursor: pointer;
+	color: var(--text-muted);
+	transition: all 0.15s ease;
+}
+
+.sb-header-btn:hover {
+	background: var(--background-modifier-hover);
+	color: var(--text-accent);
+}
+
+.sb-header-btn svg {
+	width: 14px;
+	height: 14px;
+}
+
+/* Bookmark List */
+.sb-bookmark-list {
+	flex: 1;
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding: 4px 0;
+}
+
+.sb-bookmark-list::-webkit-scrollbar {
+	width: 6px;
+}
+
+.sb-bookmark-list::-webkit-scrollbar-thumb {
+	background: var(--background-modifier-border);
+	border-radius: 3px;
+}
+
+.sb-bookmark-list::-webkit-scrollbar-thumb:hover {
+	background: var(--text-faint);
+}
+
+/* ── Tree Items ──────────────────────────────────────────── */
+
+.sb-tree-item {
+	transition: background 0.1s ease;
+}
+
+.sb-tree-item-row {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 4px 8px;
+	cursor: pointer;
+	border-radius: 4px;
+	margin: 1px 4px;
+	min-height: 28px;
+	transition: background 0.1s ease;
+}
+
+.sb-tree-item-row:hover {
+	background: var(--background-modifier-hover);
+}
+
+.sb-tree-item-row:active {
+	background: var(--background-modifier-active-hover);
+}
+
+/* Folder specific */
+.sb-folder-collapse {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 16px;
+	height: 16px;
+	flex-shrink: 0;
+	color: var(--text-muted);
+}
+
+.sb-folder-collapse svg {
+	width: 12px;
+	height: 12px;
+}
+
+.sb-folder-item > .sb-tree-item-row {
+	font-weight: 500;
+}
+
+.sb-folder-children {
+	/* Smooth expand/collapse could be added with max-height animation */
+}
+
+/* Item Icon */
+.sb-item-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 16px;
+	height: 16px;
+	flex-shrink: 0;
+	color: var(--text-muted);
+}
+
+.sb-item-icon svg {
+	width: 14px;
+	height: 14px;
+}
+
+.sb-folder-item .sb-item-icon {
+	color: var(--text-accent);
+}
+
+.sb-bookmark-item .sb-item-icon {
+	color: var(--text-muted);
+}
+
+/* Item Label */
+.sb-item-label {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 13px;
+	color: var(--text-normal);
+}
+
+/* Count Badge */
+.sb-count-badge {
+	flex-shrink: 0;
+	font-size: 10px;
+	color: var(--text-faint);
+	background: var(--background-modifier-hover);
+	padding: 1px 6px;
+	border-radius: 10px;
+	line-height: 1.4;
+}
+
+/* ── Empty State ─────────────────────────────────────────── */
+
+.sb-empty-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 24px 16px;
+	gap: 8px;
+}
+
+.sb-empty-icon {
+	color: var(--text-faint);
+	opacity: 0.5;
+}
+
+.sb-empty-icon svg {
+	width: 32px;
+	height: 32px;
+}
+
+.sb-empty-text {
+	font-size: 14px;
+	color: var(--text-muted);
+	font-weight: 500;
+}
+
+.sb-empty-hint {
+	font-size: 12px;
+	color: var(--text-faint);
+}
+
+/* ── Drag and Drop ───────────────────────────────────────── */
+
+.sb-dragging {
+	opacity: 0.4;
+}
+
+.sb-drop-target > .sb-tree-item-row {
+	background: rgba(var(--interactive-accent-rgb), 0.15);
+	outline: 2px dashed var(--interactive-accent);
+	outline-offset: -2px;
+	border-radius: 4px;
+}
+
+/* ── Modal Styles ────────────────────────────────────────── */
+
+.side-bookmark-modal {
+	padding: 8px 0;
+}
+
+.side-bookmark-modal h3 {
+	margin: 0 0 16px 0;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.side-bookmark-modal p {
+	color: var(--text-muted);
+	margin: 0 0 16px 0;
+	line-height: 1.5;
+}
+
+/* ── Settings Stats ──────────────────────────────────────── */
+
+.sb-settings-stats {
+	padding: 8px 0;
+	color: var(--text-muted);
+}
+
+.sb-settings-stats p {
+	margin: 4px 0;
+	font-size: 13px;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+/* When sidebar is narrow, adjust padding */
+@media (max-width: 300px) {
+	.sb-nav-bar {
+		padding: 4px 4px;
+		gap: 2px;
+	}
+
+	.sb-url-input {
+		font-size: 11px;
+		padding: 0 6px;
+	}
+
+	.sb-tree-item-row {
+		padding: 3px 4px;
+	}
+}
