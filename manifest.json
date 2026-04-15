@@ -1,9 +1,9 @@
 {
 	"id": "side-bookmark",
 	"name": "Side Bookmark",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"minAppVersion": "0.15.0",
-	"description": "A sidebar bookmark browser for Obsidian. Browse websites and manage bookmarks right in the sidebar.",
+	"description": "A sidebar bookmark browser. Browse websites and manage bookmarks right in the sidebar.",
 	"author": "bcs1037",
 	"isDesktopOnly": true
 }
