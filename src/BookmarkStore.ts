@@ -72,6 +72,14 @@ export class BookmarkStore {
 		this.data.showBookmarkPanel = show;
 	}
 
+	get interceptLinks(): boolean {
+		return this.data.interceptLinks;
+	}
+
+	set interceptLinks(value: boolean) {
+		this.data.interceptLinks = value;
+	}
+
 	get bookmarks(): BookmarkItem[] {
 		return this.data.bookmarks;
 	}

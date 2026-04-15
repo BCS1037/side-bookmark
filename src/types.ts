@@ -33,6 +33,8 @@ export interface SideBookmarkData {
 	folders: BookmarkFolder[];
 	defaultUrl: string;
 	showBookmarkPanel: boolean;
+	/** Whether to intercept external link clicks in notes and open them in Side Bookmark */
+	interceptLinks: boolean;
 }
 
 /** Default data for first-time plugin load */
@@ -41,6 +43,7 @@ export const DEFAULT_DATA: SideBookmarkData = {
 	folders: [],
 	defaultUrl: 'https://www.google.com',
 	showBookmarkPanel: true,
+	interceptLinks: false,
 };
 
 /** View type constant */

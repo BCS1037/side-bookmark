@@ -43,6 +43,17 @@ export class SideBookmarkSettingTab extends PluginSettingTab {
 				})
 			);
 
+		new Setting(containerEl)
+			.setName('拦截笔记链接')
+			.setDesc('开启后，单击笔记中的外部链接（http/https）将自动在 Side Bookmark 内置浏览器中打开，而非使用系统浏览器。按住 Cmd/Ctrl 单击可临时绕过，仍使用系统浏览器打开。')
+			.addToggle(toggle => toggle
+				.setValue(this.plugin.store.interceptLinks)
+				.onChange(async (value) => {
+					this.plugin.store.interceptLinks = value;
+					await this.plugin.store.save();
+				})
+			);
+
 		// Statistics section
 		containerEl.createEl('h3', { text: '统计' });
 
