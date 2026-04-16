@@ -18,7 +18,7 @@ export class SideBookmarkSettingTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		containerEl.createEl('h2', { text: 'Side Bookmark 设置' });
+		new Setting(containerEl).setName('Side bookmark 设置').setHeading();
 
 		new Setting(containerEl)
 			.setName('默认首页')
@@ -45,7 +45,7 @@ export class SideBookmarkSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName('拦截笔记链接')
-			.setDesc('开启后，单击笔记中的外部链接（http/https）将自动在 Side Bookmark 内置浏览器中打开，而非使用系统浏览器。按住 Cmd/Ctrl 单击可临时绕过，仍使用系统浏览器打开。')
+			.setDesc('开启后，单击笔记中的外部链接（http/https）将自动在 Side bookmark 内置浏览器中打开，而非使用系统浏览器。按住 Cmd/Ctrl 单击可临时绕过，仍使用系统浏览器打开。')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.store.interceptLinks)
 				.onChange(async (value) => {
@@ -55,7 +55,7 @@ export class SideBookmarkSettingTab extends PluginSettingTab {
 			);
 
 		// Statistics section
-		containerEl.createEl('h3', { text: '统计' });
+		new Setting(containerEl).setName('统计').setHeading();
 
 		const stats = containerEl.createDiv({ cls: 'sb-settings-stats' });
 		stats.createEl('p', {

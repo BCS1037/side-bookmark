@@ -92,21 +92,24 @@ export class BrowserPanel {
 	/** Go back in browser history */
 	goBack(): void {
 		if (this.webviewEl) {
-			(this.webviewEl as any).goBack?.();
+			const wv = this.webviewEl as unknown as Record<string, unknown>;
+			if (typeof wv.goBack === 'function') wv.goBack();
 		}
 	}
 
 	/** Go forward in browser history */
 	goForward(): void {
 		if (this.webviewEl) {
-			(this.webviewEl as any).goForward?.();
+			const wv = this.webviewEl as unknown as Record<string, unknown>;
+			if (typeof wv.goForward === 'function') wv.goForward();
 		}
 	}
 
 	/** Reload the current page */
 	reload(): void {
 		if (this.webviewEl) {
-			(this.webviewEl as any).reload?.();
+			const wv = this.webviewEl as unknown as Record<string, unknown>;
+			if (typeof wv.reload === 'function') wv.reload();
 		}
 	}
 
@@ -145,7 +148,7 @@ export class BrowserPanel {
 		}
 
 		// Create a new webview element (Electron's webview tag)
-		const webview = document.createElement('webview') as HTMLElement;
+		const webview = document.createElement('webview');
 
 		webview.setAttribute('src', url);
 		webview.setAttribute('allowpopups', '');
@@ -153,45 +156,45 @@ export class BrowserPanel {
 
 		// Listen for navigation events
 		webview.addEventListener('did-navigate', ((e: CustomEvent) => {
-			const detail = e as any;
-			if (detail.url) {
+			const detail = e as unknown as Record<string, unknown>;
+			if (typeof detail.url === 'string') {
 				this.currentUrl = detail.url;
 				this.urlInput.value = detail.url;
 			}
 		}) as EventListener);
 
 		webview.addEventListener('did-navigate-in-page', ((e: CustomEvent) => {
-			const detail = e as any;
-			if (detail.url) {
+			const detail = e as unknown as Record<string, unknown>;
+			if (typeof detail.url === 'string') {
 				this.currentUrl = detail.url;
 				this.urlInput.value = detail.url;
 			}
 		}) as EventListener);
 
 		webview.addEventListener('page-title-updated', ((e: CustomEvent) => {
-			const detail = e as any;
-			if (detail.title) {
+			const detail = e as unknown as Record<string, unknown>;
+			if (typeof detail.title === 'string') {
 				this.currentTitle = detail.title;
 			}
 		}) as EventListener);
 
-		// Use dom-ready to set up more event listeners via webview API
 		webview.addEventListener('dom-ready', () => {
 			// Update URL from webview's actual URL
-			const wv = webview as any;
-			if (wv.getURL) {
-				this.currentUrl = wv.getURL();
+			const wv = webview as unknown as Record<string, unknown>;
+			if (typeof wv.getURL === 'function') {
+				this.currentUrl = wv.getURL() as string;
 				this.urlInput.value = this.currentUrl;
 			}
-			if (wv.getTitle) {
-				this.currentTitle = wv.getTitle();
+			if (typeof wv.getTitle === 'function') {
+				this.currentTitle = wv.getTitle() as string;
 			}
 		});
 
 		// Handle new-window events (open links in same webview)
-		webview.addEventListener('new-window', ((e: any) => {
-			if (e.url) {
-				this.navigate(e.url);
+		webview.addEventListener('new-window', ((e: Event) => {
+			const eventObj = e as unknown as Record<string, unknown>;
+			if (typeof eventObj.url === 'string') {
+				this.navigate(eventObj.url);
 			}
 		}) as EventListener);
 

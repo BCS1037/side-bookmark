@@ -26,17 +26,15 @@ export default class SideBookmarkPlugin extends Plugin {
 			(leaf) => new BookmarkView(leaf, this)
 		);
 
-		// Add ribbon icon (left sidebar)
-		this.addRibbonIcon('bookmark', 'Side Bookmark', () => {
-			this.activateView();
+		this.addRibbonIcon('bookmark', 'Side bookmark', () => {
+			void this.activateView();
 		});
 
-		// Add command to open the view
 		this.addCommand({
-			id: 'open-side-bookmark',
+			id: 'open',
 			name: '打开侧边栏书签',
 			callback: () => {
-				this.activateView();
+				void this.activateView();
 			},
 		});
 
@@ -68,7 +66,7 @@ export default class SideBookmarkPlugin extends Plugin {
 				const urlStr = url.toString();
 				if (/^https?:\/\//i.test(urlStr)) {
 					// We must open it asynchronously or directly? Directly is fine.
-					this.openUrlInSideBookmark(urlStr);
+					void this.openUrlInSideBookmark(urlStr);
 					return null;
 				}
 			}
@@ -81,9 +79,6 @@ export default class SideBookmarkPlugin extends Plugin {
 		if (this.originalWindowOpen) {
 			window.open = this.originalWindowOpen;
 		}
-
-		// Detach all leaves of our view type
-		this.app.workspace.detachLeavesOfType(VIEW_TYPE_SIDE_BOOKMARK);
 	}
 
 	/**
@@ -114,7 +109,7 @@ export default class SideBookmarkPlugin extends Plugin {
 		evt.stopPropagation();
 
 		// Open the URL in Side Bookmark
-		this.openUrlInSideBookmark(href);
+		void this.openUrlInSideBookmark(href);
 	}
 
 	/** Open a URL in the Side Bookmark browser panel, activating the view if needed */
@@ -130,7 +125,7 @@ export default class SideBookmarkPlugin extends Plugin {
 			leaves = workspace.getLeavesOfType(VIEW_TYPE_SIDE_BOOKMARK);
 		} else {
 			const firstLeaf = leaves[0];
-			if (firstLeaf) workspace.revealLeaf(firstLeaf);
+			if (firstLeaf) void workspace.revealLeaf(firstLeaf);
 		}
 
 		const firstLeaf = leaves[0];
@@ -153,7 +148,7 @@ export default class SideBookmarkPlugin extends Plugin {
 
 		if (leaves.length > 0) {
 			// View already exists, reveal it
-			workspace.revealLeaf(leaves[0] as WorkspaceLeaf);
+			void workspace.revealLeaf(leaves[0] as WorkspaceLeaf);
 		} else {
 			// Create a new leaf in the right sidebar
 			const leaf = workspace.getRightLeaf(false);
@@ -162,7 +157,7 @@ export default class SideBookmarkPlugin extends Plugin {
 					type: VIEW_TYPE_SIDE_BOOKMARK,
 					active: true,
 				});
-				workspace.revealLeaf(leaf);
+				void workspace.revealLeaf(leaf);
 			}
 		}
 	}

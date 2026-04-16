@@ -25,14 +25,14 @@ export class BookmarkView extends ItemView {
 	}
 
 	getDisplayText(): string {
-		return 'Side Bookmark';
+		return 'Side bookmark';
 	}
 
 	getIcon(): string {
 		return 'bookmark';
 	}
 
-	async onOpen(): Promise<void> {
+	onOpen(): Promise<void> {
 		const container = this.contentEl;
 		container.empty();
 		container.addClass('sb-container');
@@ -48,8 +48,8 @@ export class BookmarkView extends ItemView {
 				title,
 				url,
 				null,
-				async (savedTitle: string, savedUrl: string, folderId: string | null) => {
-					await this.plugin.store.addBookmark(savedTitle, savedUrl, folderId);
+				(savedTitle: string, savedUrl: string, folderId: string | null) => {
+					void this.plugin.store.addBookmark(savedTitle, savedUrl, folderId);
 				}
 			).open();
 		};
@@ -74,9 +74,10 @@ export class BookmarkView extends ItemView {
 		if (!this.plugin.store.showBookmarkPanel) {
 			this.bookmarkPanel.toggleCollapse();
 		}
+		return Promise.resolve();
 	}
 
-	async onClose(): Promise<void> {
+	onClose(): Promise<void> {
 		if (this.browserPanel) {
 			this.browserPanel.destroy();
 			this.browserPanel = null;
@@ -85,6 +86,7 @@ export class BookmarkView extends ItemView {
 			this.bookmarkPanel.destroy();
 			this.bookmarkPanel = null;
 		}
+		return Promise.resolve();
 	}
 
 	/** Navigate the browser panel to a URL (used by external callers) */

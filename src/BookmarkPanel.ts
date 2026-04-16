@@ -128,9 +128,9 @@ export class BookmarkPanel {
 
 		for (const item of items) {
 			if (item.type === 'folder') {
-				this.renderFolder(parentEl, item as BookmarkFolder, depth);
+				this.renderFolder(parentEl, item, depth);
 			} else {
-				this.renderBookmark(parentEl, item as BookmarkItem, depth);
+				this.renderBookmark(parentEl, item, depth);
 			}
 		}
 	}
@@ -165,7 +165,7 @@ export class BookmarkPanel {
 
 		// Click to toggle collapse
 		folderRow.addEventListener('click', () => {
-			this.store.toggleFolder(folder.id);
+			void this.store.toggleFolder(folder.id);
 		});
 
 		// Context menu
@@ -395,7 +395,7 @@ export class BookmarkPanel {
 			el.removeClass('sb-drop-target');
 		});
 
-		el.addEventListener('drop', async (e: DragEvent) => {
+		el.addEventListener('drop', (e: DragEvent) => {
 			e.preventDefault();
 			el.removeClass('sb-drop-target');
 
@@ -407,7 +407,7 @@ export class BookmarkPanel {
 
 				// If dropping a bookmark onto a folder, move it
 				if (data.type === 'bookmark' && item.type === 'folder') {
-					await this.store.moveBookmark(data.id, item.id);
+					void this.store.moveBookmark(data.id, item.id);
 				}
 			} catch {
 				// Ignore invalid data
