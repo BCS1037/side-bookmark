@@ -91,7 +91,7 @@ export default class SideBookmarkPlugin extends Plugin {
 
 		// Find the closest anchor element from the click target
 		const target = evt.target as HTMLElement;
-		const anchor = target.closest('a') as HTMLAnchorElement | null;
+		const anchor = target.closest('a');
 		if (!anchor) return;
 
 		// Only handle external http/https links (skip internal Obsidian links)
@@ -131,9 +131,9 @@ export default class SideBookmarkPlugin extends Plugin {
 		const firstLeaf = leaves[0];
 		if (firstLeaf) {
 			// Access the BookmarkView and navigate to the URL
-			const view = firstLeaf.view as any;
+			const view = firstLeaf.view as unknown as Record<string, unknown>;
 			if (typeof view.navigateTo === 'function') {
-				view.navigateTo(url);
+				(view.navigateTo as (u: string) => void)(url);
 			}
 		}
 	}
