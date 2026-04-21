@@ -38,7 +38,7 @@ export class BookmarkPanel {
 		const headerLeft = this.headerEl.createDiv({ cls: 'sb-bookmark-header-left' });
 		const collapseIcon = headerLeft.createDiv({ cls: 'sb-collapse-icon' });
 		setIcon(collapseIcon, 'chevron-down');
-		headerLeft.createSpan({ text: '书签', cls: 'sb-bookmark-title' });
+		headerLeft.createSpan({ text: 'Bookmarks', cls: 'sb-bookmark-title' });
 
 		headerLeft.addEventListener('click', () => {
 			this.toggleCollapse();
@@ -51,7 +51,7 @@ export class BookmarkPanel {
 
 		const addBookmarkBtn = addBtnGroup.createDiv({
 			cls: 'sb-header-btn',
-			attr: { 'aria-label': '添加书签' },
+			attr: { 'aria-label': 'Add bookmark' },
 		});
 		setIcon(addBookmarkBtn, 'plus');
 		addBookmarkBtn.addEventListener('click', (e: MouseEvent) => {
@@ -61,7 +61,7 @@ export class BookmarkPanel {
 
 		const addFolderBtn = addBtnGroup.createDiv({
 			cls: 'sb-header-btn',
-			attr: { 'aria-label': '新建文件夹' },
+			attr: { 'aria-label': 'New folder' },
 		});
 		setIcon(addFolderBtn, 'folder-plus');
 		addFolderBtn.addEventListener('click', (e: MouseEvent) => {
@@ -111,9 +111,9 @@ export class BookmarkPanel {
 			const emptyState = this.listEl.createDiv({ cls: 'sb-empty-state' });
 			const emptyIcon = emptyState.createDiv({ cls: 'sb-empty-icon' });
 			setIcon(emptyIcon, 'bookmark');
-			emptyState.createDiv({ text: '暂无书签', cls: 'sb-empty-text' });
+			emptyState.createDiv({ text: 'No bookmarks', cls: 'sb-empty-text' });
 			emptyState.createDiv({
-				text: '点击 + 按钮或 ⭐ 按钮添加书签',
+				text: 'Click the + button or ⭐ icon to add a bookmark',
 				cls: 'sb-empty-hint',
 			});
 			return;
@@ -225,7 +225,7 @@ export class BookmarkPanel {
 		const menu = new Menu();
 
 		menu.addItem(item => {
-			item.setTitle('打开');
+			item.setTitle('Open');
 			item.setIcon('external-link');
 			item.onClick(() => {
 				if (this.onNavigate) {
@@ -237,7 +237,7 @@ export class BookmarkPanel {
 		menu.addSeparator();
 
 		menu.addItem(item => {
-			item.setTitle('编辑');
+			item.setTitle('Edit');
 			item.setIcon('pencil');
 			item.onClick(() => {
 				new EditBookmarkModal(
@@ -253,7 +253,7 @@ export class BookmarkPanel {
 
 		// Move to folder submenu
 		menu.addItem(item => {
-			item.setTitle('移动到...');
+			item.setTitle('Move to...');
 			item.setIcon('folder-input');
 			item.onClick(() => {
 				this.showMoveMenu(event, bookmark);
@@ -263,12 +263,12 @@ export class BookmarkPanel {
 		menu.addSeparator();
 
 		menu.addItem(item => {
-			item.setTitle('删除');
+			item.setTitle('Delete');
 			item.setIcon('trash-2');
 			item.onClick(() => {
 				new ConfirmDeleteModal(
 					this.app,
-					`确定要删除书签"${bookmark.title}"吗？`,
+					`Are you sure you want to delete bookmark "${bookmark.title}"?`,
 					async () => { await this.store.removeBookmark(bookmark.id); }
 				).open();
 			});
@@ -282,7 +282,7 @@ export class BookmarkPanel {
 		const menu = new Menu();
 
 		menu.addItem(item => {
-			item.setTitle('添加书签到此文件夹');
+			item.setTitle('Add bookmark to this folder');
 			item.setIcon('plus');
 			item.onClick(() => {
 				new AddBookmarkModal(this.app, this.store, '', '', folder.id).open();
@@ -290,7 +290,7 @@ export class BookmarkPanel {
 		});
 
 		menu.addItem(item => {
-			item.setTitle('添加子文件夹');
+			item.setTitle('Add sub-folder');
 			item.setIcon('folder-plus');
 			item.onClick(() => {
 				new AddFolderModal(this.app, this.store, folder.id).open();
@@ -300,7 +300,7 @@ export class BookmarkPanel {
 		menu.addSeparator();
 
 		menu.addItem(item => {
-			item.setTitle('重命名');
+			item.setTitle('Rename');
 			item.setIcon('pencil');
 			item.onClick(() => {
 				new EditFolderModal(this.app, this.store, folder.id, folder.name).open();
@@ -310,14 +310,14 @@ export class BookmarkPanel {
 		menu.addSeparator();
 
 		menu.addItem(item => {
-			item.setTitle('删除文件夹');
+			item.setTitle('Delete folder');
 			item.setIcon('trash-2');
 			item.onClick(() => {
 				const bookmarkCount = this.store.getBookmarksByFolder(folder.id).length;
 				const subFolderCount = this.store.getSubFolders(folder.id).length;
-				let msg = `确定要删除文件夹"${folder.name}"吗？`;
+				let msg = `Are you sure you want to delete folder "${folder.name}"?`;
 				if (bookmarkCount > 0 || subFolderCount > 0) {
-					msg += `\n其中包含 ${bookmarkCount} 个书签和 ${subFolderCount} 个子文件夹，将一并删除。`;
+					msg += `\nIt contains ${bookmarkCount} bookmarks and ${subFolderCount} folders, which will all be deleted.`;
 				}
 				new ConfirmDeleteModal(
 					this.app,
@@ -337,7 +337,7 @@ export class BookmarkPanel {
 		// Move to root
 		if (bookmark.folderId !== null) {
 			menu.addItem(item => {
-				item.setTitle('（根级别）');
+				item.setTitle('(Root level)');
 				item.setIcon('corner-left-up');
 				item.onClick(async () => {
 					await this.store.moveBookmark(bookmark.id, null);

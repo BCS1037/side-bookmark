@@ -37,18 +37,18 @@ export class AddBookmarkModal extends Modal {
 		contentEl.empty();
 		contentEl.addClass('side-bookmark-modal');
 
-		contentEl.createEl('h3', { text: '添加书签' });
+		contentEl.createEl('h3', { text: 'Add bookmark' });
 
 		new Setting(contentEl)
-			.setName('标题')
+			.setName('Title')
 			.addText(text => text
-				.setPlaceholder('输入书签标题')
+				.setPlaceholder('Enter bookmark title')
 				.setValue(this.title)
 				.onChange(value => { this.title = value; })
 			);
 
 		new Setting(contentEl)
-			.setName('网址')
+			.setName('URL')
 			.addText(text => text
 				.setPlaceholder('https://example.com')
 				.setValue(this.url)
@@ -56,9 +56,9 @@ export class AddBookmarkModal extends Modal {
 			);
 
 		new Setting(contentEl)
-			.setName('文件夹')
+			.setName('Folder')
 			.addDropdown(dropdown => {
-				dropdown.addOption('__root__', '（无文件夹）');
+				dropdown.addOption('__root__', '(No folder)');
 				for (const folder of this.store.folders) {
 					dropdown.addOption(folder.id, this.getFolderPath(folder));
 				}
@@ -70,7 +70,7 @@ export class AddBookmarkModal extends Modal {
 
 		new Setting(contentEl)
 			.addButton(btn => btn
-				.setButtonText('保存')
+				.setButtonText('Save')
 				.setCta()
 				.onClick(async () => {
 					if (!this.url.trim()) {
@@ -93,7 +93,7 @@ export class AddBookmarkModal extends Modal {
 				})
 			)
 			.addButton(btn => btn
-				.setButtonText('取消')
+				.setButtonText('Cancel')
 				.onClick(() => this.close())
 			);
 	}
@@ -147,18 +147,18 @@ export class EditBookmarkModal extends Modal {
 		contentEl.empty();
 		contentEl.addClass('side-bookmark-modal');
 
-		contentEl.createEl('h3', { text: '编辑书签' });
+		contentEl.createEl('h3', { text: 'Edit bookmark' });
 
 		new Setting(contentEl)
-			.setName('标题')
+			.setName('Title')
 			.addText(text => text
-				.setPlaceholder('输入书签标题')
+				.setPlaceholder('Enter bookmark title')
 				.setValue(this.title)
 				.onChange(value => { this.title = value; })
 			);
 
 		new Setting(contentEl)
-			.setName('网址')
+			.setName('URL')
 			.addText(text => text
 				.setPlaceholder('https://example.com')
 				.setValue(this.url)
@@ -166,9 +166,9 @@ export class EditBookmarkModal extends Modal {
 			);
 
 		new Setting(contentEl)
-			.setName('文件夹')
+			.setName('Folder')
 			.addDropdown(dropdown => {
-				dropdown.addOption('__root__', '（无文件夹）');
+				dropdown.addOption('__root__', '(No folder)');
 				for (const folder of this.store.folders) {
 					dropdown.addOption(folder.id, this.getFolderPath(folder));
 				}
@@ -180,7 +180,7 @@ export class EditBookmarkModal extends Modal {
 
 		new Setting(contentEl)
 			.addButton(btn => btn
-				.setButtonText('保存')
+				.setButtonText('Save')
 				.setCta()
 				.onClick(async () => {
 					if (!this.url.trim()) return;
@@ -200,7 +200,7 @@ export class EditBookmarkModal extends Modal {
 				})
 			)
 			.addButton(btn => btn
-				.setButtonText('取消')
+				.setButtonText('Cancel')
 				.onClick(() => this.close())
 			);
 	}
@@ -242,20 +242,20 @@ export class AddFolderModal extends Modal {
 		contentEl.empty();
 		contentEl.addClass('side-bookmark-modal');
 
-		contentEl.createEl('h3', { text: '新建文件夹' });
+		contentEl.createEl('h3', { text: 'New folder' });
 
 		new Setting(contentEl)
-			.setName('文件夹名称')
+			.setName('Folder name')
 			.addText(text => text
-				.setPlaceholder('输入文件夹名称')
+				.setPlaceholder('Enter folder name')
 				.setValue(this.folderName)
 				.onChange(value => { this.folderName = value; })
 			);
 
 		new Setting(contentEl)
-			.setName('父文件夹')
+			.setName('Parent folder')
 			.addDropdown(dropdown => {
-				dropdown.addOption('__root__', '（根级别）');
+				dropdown.addOption('__root__', '(Root level)');
 				for (const folder of this.store.folders) {
 					dropdown.addOption(folder.id, this.getFolderPath(folder));
 				}
@@ -267,7 +267,7 @@ export class AddFolderModal extends Modal {
 
 		new Setting(contentEl)
 			.addButton(btn => btn
-				.setButtonText('创建')
+				.setButtonText('Create')
 				.setCta()
 				.onClick(async () => {
 					if (!this.folderName.trim()) return;
@@ -276,7 +276,7 @@ export class AddFolderModal extends Modal {
 				})
 			)
 			.addButton(btn => btn
-				.setButtonText('取消')
+				.setButtonText('Cancel')
 				.onClick(() => this.close())
 			);
 	}
@@ -318,19 +318,19 @@ export class EditFolderModal extends Modal {
 		contentEl.empty();
 		contentEl.addClass('side-bookmark-modal');
 
-		contentEl.createEl('h3', { text: '编辑文件夹' });
+		contentEl.createEl('h3', { text: 'Edit folder' });
 
 		new Setting(contentEl)
-			.setName('文件夹名称')
+			.setName('Folder name')
 			.addText(text => text
-				.setPlaceholder('输入文件夹名称')
+				.setPlaceholder('Enter folder name')
 				.setValue(this.folderName)
 				.onChange(value => { this.folderName = value; })
 			);
 
 		new Setting(contentEl)
 			.addButton(btn => btn
-				.setButtonText('保存')
+				.setButtonText('Save')
 				.setCta()
 				.onClick(async () => {
 					if (!this.folderName.trim()) return;
@@ -341,7 +341,7 @@ export class EditFolderModal extends Modal {
 				})
 			)
 			.addButton(btn => btn
-				.setButtonText('取消')
+				.setButtonText('Cancel')
 				.onClick(() => this.close())
 			);
 	}
@@ -369,12 +369,12 @@ export class ConfirmDeleteModal extends Modal {
 		contentEl.empty();
 		contentEl.addClass('side-bookmark-modal');
 
-		contentEl.createEl('h3', { text: '确认删除' });
+		contentEl.createEl('h3', { text: 'Confirm delete' });
 		contentEl.createEl('p', { text: this.message });
 
 		new Setting(contentEl)
 			.addButton(btn => btn
-				.setButtonText('删除')
+				.setButtonText('Delete')
 				.setWarning()
 				.onClick(async () => {
 					await this.onConfirm();
@@ -382,7 +382,7 @@ export class ConfirmDeleteModal extends Modal {
 				})
 			)
 			.addButton(btn => btn
-				.setButtonText('取消')
+				.setButtonText('Cancel')
 				.onClick(() => this.close())
 			);
 	}

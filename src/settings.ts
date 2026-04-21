@@ -18,11 +18,11 @@ export class SideBookmarkSettingTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		new Setting(containerEl).setName('设置').setHeading();
+		new Setting(containerEl).setName('General').setHeading();
 
 		new Setting(containerEl)
-			.setName('默认首页')
-			.setDesc('打开插件时默认加载的网址')
+			.setName('Default homepage')
+			.setDesc('The URL to load when the plugin opens.')
 			.addText(text => text
 				.setPlaceholder('https://www.google.com')
 				.setValue(this.plugin.store.defaultUrl)
@@ -33,8 +33,8 @@ export class SideBookmarkSettingTab extends PluginSettingTab {
 			);
 
 		new Setting(containerEl)
-			.setName('默认显示书签面板')
-			.setDesc('打开插件时是否默认展开书签列表面板')
+			.setName('Show bookmark panel by default')
+			.setDesc('Expand the bookmark list panel automatically when the plugin opens.')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.store.showBookmarkPanel)
 				.onChange(async (value) => {
@@ -44,8 +44,8 @@ export class SideBookmarkSettingTab extends PluginSettingTab {
 			);
 
 		new Setting(containerEl)
-			.setName('拦截笔记链接')
-			.setDesc('开启后，单击笔记中的外部链接（http/https）将自动在内置浏览器中打开，而非使用系统浏览器。按住 Cmd/Ctrl 单击可临时绕过，仍使用系统浏览器打开。')
+			.setName('Intercept note links')
+			.setDesc('When enabled, clicking external links (http/https) in notes opens them in the built-in browser instead of the system browser. Hold Cmd/Ctrl while clicking to bypass and use the system browser.')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.store.interceptLinks)
 				.onChange(async (value) => {
@@ -55,14 +55,14 @@ export class SideBookmarkSettingTab extends PluginSettingTab {
 			);
 
 		// Statistics section
-		new Setting(containerEl).setName('统计').setHeading();
+		new Setting(containerEl).setName('Statistics').setHeading();
 
 		const stats = containerEl.createDiv({ cls: 'sb-settings-stats' });
 		stats.createEl('p', {
-			text: `书签数量: ${this.plugin.store.bookmarks.length}`,
+			text: `Bookmarks: ${this.plugin.store.bookmarks.length}`,
 		});
 		stats.createEl('p', {
-			text: `文件夹数量: ${this.plugin.store.folders.length}`,
+			text: `Folders: ${this.plugin.store.folders.length}`,
 		});
 	}
 }

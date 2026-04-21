@@ -32,7 +32,7 @@ export default class SideBookmarkPlugin extends Plugin {
 
 		this.addCommand({
 			id: 'open',
-			name: '打开侧边栏书签',
+			name: 'Open side bookmark',
 			callback: () => {
 				void this.activateView();
 			},

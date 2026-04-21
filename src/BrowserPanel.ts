@@ -31,15 +31,15 @@ export class BrowserPanel {
 		// Navigation buttons
 		const navBtns = this.navBarEl.createDiv({ cls: 'sb-nav-buttons' });
 
-		this.backBtn = navBtns.createDiv({ cls: 'sb-nav-btn', attr: { 'aria-label': '后退' } });
+		this.backBtn = navBtns.createDiv({ cls: 'sb-nav-btn', attr: { 'aria-label': 'Back' } });
 		setIcon(this.backBtn, 'arrow-left');
 		this.backBtn.addEventListener('click', () => this.goBack());
 
-		this.forwardBtn = navBtns.createDiv({ cls: 'sb-nav-btn', attr: { 'aria-label': '前进' } });
+		this.forwardBtn = navBtns.createDiv({ cls: 'sb-nav-btn', attr: { 'aria-label': 'Forward' } });
 		setIcon(this.forwardBtn, 'arrow-right');
 		this.forwardBtn.addEventListener('click', () => this.goForward());
 
-		this.refreshBtn = navBtns.createDiv({ cls: 'sb-nav-btn', attr: { 'aria-label': '刷新' } });
+		this.refreshBtn = navBtns.createDiv({ cls: 'sb-nav-btn', attr: { 'aria-label': 'Reload' } });
 		setIcon(this.refreshBtn, 'refresh-cw');
 		this.refreshBtn.addEventListener('click', () => this.reload());
 
@@ -48,7 +48,7 @@ export class BrowserPanel {
 			cls: 'sb-url-input',
 			attr: {
 				type: 'text',
-				placeholder: '输入网址...',
+				placeholder: 'Enter URL...',
 				spellcheck: 'false',
 			},
 		});
@@ -62,7 +62,7 @@ export class BrowserPanel {
 		});
 
 		// Bookmark (star) button
-		this.bookmarkBtn = this.navBarEl.createDiv({ cls: 'sb-nav-btn sb-bookmark-btn', attr: { 'aria-label': '添加书签' } });
+		this.bookmarkBtn = this.navBarEl.createDiv({ cls: 'sb-nav-btn sb-bookmark-btn', attr: { 'aria-label': 'Add bookmark' } });
 		setIcon(this.bookmarkBtn, 'star');
 		this.bookmarkBtn.addEventListener('click', () => {
 			if (this.onAddBookmark && this.currentUrl) {
