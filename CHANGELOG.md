@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.5] - 2026-05-13
+
+### Fixed
+- **Submission Compliance**: Addressed multiple warnings and errors flagged by the Obsidian community review process.
+- Updated `minAppVersion` to `1.7.2` to support `Workspace.revealLeaf`.
+- Fixed popout window compatibility by migrating `document` to `activeDocument` and `window` to `activeWindow`.
+- Improved type safety across files by removing `any` usage in `src/BookmarkPanel.ts` and `src/BrowserPanel.ts`.
+- Removed "General" heading from the settings tab.
+- Replaced `document.createElement('webview')` with `createEl('webview')` for proper initialization.
+- Re-named the command palette entry to "Open" to prevent redundant prefixing.
+- Added a GitHub Actions workflow to generate artifact attestations for `main.js` and `styles.css`.
+
 ## [0.0.4] - 2026-04-21
 
 ### Fixed

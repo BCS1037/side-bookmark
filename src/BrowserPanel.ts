@@ -92,24 +92,24 @@ export class BrowserPanel {
 	/** Go back in browser history */
 	goBack(): void {
 		if (this.webviewEl) {
-			const wv = this.webviewEl as unknown as Record<string, unknown>;
-			if (typeof wv.goBack === 'function') wv.goBack();
+			const wv = this.webviewEl as unknown as { goBack?: () => void };
+			wv.goBack?.();
 		}
 	}
 
 	/** Go forward in browser history */
 	goForward(): void {
 		if (this.webviewEl) {
-			const wv = this.webviewEl as unknown as Record<string, unknown>;
-			if (typeof wv.goForward === 'function') wv.goForward();
+			const wv = this.webviewEl as unknown as { goForward?: () => void };
+			wv.goForward?.();
 		}
 	}
 
 	/** Reload the current page */
 	reload(): void {
 		if (this.webviewEl) {
-			const wv = this.webviewEl as unknown as Record<string, unknown>;
-			if (typeof wv.reload === 'function') wv.reload();
+			const wv = this.webviewEl as unknown as { reload?: () => void };
+			wv.reload?.();
 		}
 	}
 
@@ -142,17 +142,16 @@ export class BrowserPanel {
 
 	/** Create or update the webview element */
 	private createOrUpdateWebview(url: string): void {
-		// Remove existing webview
-		if (this.webviewEl) {
-			this.webviewEl.remove();
-		}
+		this.webviewContainer.empty();
 
 		// Create a new webview element (Electron's webview tag)
-		const webview = document.createElement('webview');
-
-		webview.setAttribute('src', url);
-		webview.setAttribute('allowpopups', '');
-		webview.addClass('sb-webview');
+		const webview = this.webviewContainer.createEl('webview' as keyof HTMLElementTagNameMap, {
+			attr: {
+				src: url,
+				allowpopups: ''
+			},
+			cls: 'sb-webview'
+		});
 
 		// Listen for navigation events
 		webview.addEventListener('did-navigate', ((e: CustomEvent) => {
@@ -180,13 +179,13 @@ export class BrowserPanel {
 
 		webview.addEventListener('dom-ready', () => {
 			// Update URL from webview's actual URL
-			const wv = webview as unknown as Record<string, unknown>;
-			if (typeof wv.getURL === 'function') {
-				this.currentUrl = wv.getURL() as string;
+			const wv = webview as unknown as { getURL?: () => string, getTitle?: () => string };
+			if (wv.getURL) {
+				this.currentUrl = wv.getURL();
 				this.urlInput.value = this.currentUrl;
 			}
-			if (typeof wv.getTitle === 'function') {
-				this.currentTitle = wv.getTitle() as string;
+			if (wv.getTitle) {
+				this.currentTitle = wv.getTitle();
 			}
 		});
 
@@ -198,8 +197,6 @@ export class BrowserPanel {
 			}
 		}) as EventListener);
 
-		this.webviewContainer.empty();
-		this.webviewContainer.appendChild(webview);
 		this.webviewEl = webview;
 	}
 }

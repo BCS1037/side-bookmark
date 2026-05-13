@@ -18,8 +18,6 @@ export class SideBookmarkSettingTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		new Setting(containerEl).setName('General').setHeading();
-
 		new Setting(containerEl)
 			.setName('Default homepage')
 			.setDesc('The URL to load when the plugin opens.')

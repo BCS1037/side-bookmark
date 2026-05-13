@@ -1,6 +1,6 @@
 {
 	"name": "side-bookmark",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "A sidebar bookmark browser plugin for Obsidian",
 	"main": "main.js",
 	"type": "module",

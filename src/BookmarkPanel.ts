@@ -402,7 +402,7 @@ export class BookmarkPanel {
 			if (!e.dataTransfer) return;
 
 			try {
-				const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+				const data = JSON.parse(e.dataTransfer.getData('text/plain')) as { id?: string, type?: string };
 				if (!data.id || !data.type) return;
 
 				// If dropping a bookmark onto a folder, move it

@@ -32,7 +32,7 @@ export default class SideBookmarkPlugin extends Plugin {
 
 		this.addCommand({
 			id: 'open',
-			name: 'Open side bookmark',
+			name: 'Open',
 			callback: () => {
 				void this.activateView();
 			},
@@ -42,20 +42,20 @@ export default class SideBookmarkPlugin extends Plugin {
 		this.addSettingTab(new SideBookmarkSettingTab(this.app, this));
 
 		// Register global link interception (capture phase, runs before Obsidian's handlers)
-		this.registerDomEvent(document, 'click', this.handleLinkClick.bind(this), true);
+		this.registerDomEvent(activeDocument, 'click', this.handleLinkClick.bind(this), true);
 
 		// Track modifier keys for window.open interception bypass
-		this.registerDomEvent(document, 'keydown', (e: KeyboardEvent) => {
+		this.registerDomEvent(activeDocument, 'keydown', (e: KeyboardEvent) => {
 			if (e.key === 'Meta' || e.key === 'Control' || e.metaKey || e.ctrlKey) {
 				this.modifierKeyPressed = true;
 			}
 		});
-		this.registerDomEvent(document, 'keyup', (e: KeyboardEvent) => {
+		this.registerDomEvent(activeDocument, 'keyup', (e: KeyboardEvent) => {
 			if (e.key === 'Meta' || e.key === 'Control' || (!e.metaKey && !e.ctrlKey)) {
 				this.modifierKeyPressed = false;
 			}
 		});
-		this.registerDomEvent(window, 'blur', () => {
+		this.registerDomEvent(activeWindow, 'blur', () => {
 			this.modifierKeyPressed = false;
 		});
 
